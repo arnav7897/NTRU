@@ -35,24 +35,20 @@ In real-world cryptographic use, NTRU includes:
 
 4. Private key:
    - $(f,\ f_p^{-1},\ f_q^{-1})$
-### 🔹 Encryption
-To encrypt message polynomial `m`:
-1. Choose random small polynomial `r`
-2. Compute:
-   \[
-   e = r \cdot h + m \mod q
-   \]
+## 🔐 Encryption
 
-### 🔹 Decryption
-1. Compute:
-   \[
-   a = f \cdot e \mod q
-   \]
-2. Lift `a` to centered mod `q`, then reduce mod `p`
-3. Recover:
-   \[
-   m = f_p^{-1} \cdot a \mod p
-   \]
+1. Choose a random small polynomial $r$
+2. Compute ciphertext:
+   - $e = r \cdot h + m \mod q$
+
+## 🔓 Decryption
+
+1. Compute intermediate value:
+   - $a = f \cdot e \mod q$
+2. Lift $a$ to centered mod $q$, then reduce mod $p$
+3. Recover the message:
+   - $m = f_p^{-1} \cdot a \mod p$
+
 
 ---
 
