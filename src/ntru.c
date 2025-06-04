@@ -32,7 +32,7 @@ int extract_inverse(FILE *fp, int modulus, poly *res) {
 }
 
 int main() {
-    FILE *fp = fopen("./assets/output.txt", "r");
+    FILE *fp = fopen("../assets/output.txt", "r");
     if (!fp) {
         perror("Cannot open output.txt");
         return 1;
@@ -61,7 +61,7 @@ int main() {
 
     fclose(fp);
     FILE *ptr;
-    ptr =fopen("./assets/secret.txt","r");
+    ptr =fopen("../assets/secret.txt","r");
     poly f,g;
     for(int i =0 ;i<N;i++){
         fscanf(ptr,"%d",&f.coff[i]);
@@ -69,6 +69,7 @@ int main() {
     for(int i =0 ;i<N;i++){
         fscanf(ptr,"%d",&g.coff[i]);
     }
+    fclose(ptr);
     // KEY generation steps -->
     // f,g --> as t(d+1,d) and t(d,d) respectively
     // calculating inverses --> Fq = f inv mod q ,, Fp = f inv mod p 
@@ -116,7 +117,7 @@ int main() {
     print_poly("final decryption",&d);
     
     FILE *ptr3; // storing public parameters in public.txt
-    ptr3 = fopen("./assets/public.txt","w");
+    ptr3 = fopen("../assets/public.txt","w");
     if(ptr3==NULL){
         printf("error in opening file\n");
         exit(0);
@@ -136,7 +137,7 @@ int main() {
     // 0 Q*I
 
     FILE *ptr4;
-    ptr4 = fopen("./assets/ntru_matrix.txt","w");
+    ptr4 = fopen("../ntru_matrix.txt","w");
     if(ptr4==NULL){
         printf("error in opening ntru_matrix.txt\n");
         exit(0);
@@ -166,5 +167,6 @@ int main() {
         }
         fprintf(ptr4,"%c",'\n');
     }
+    fclose(ptr4);
     return 0;
 }

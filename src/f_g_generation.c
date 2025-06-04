@@ -7,7 +7,7 @@
 int main(){
     FILE *ptr =NULL;
     FILE *ptr2 =NULL;
-    ptr = fopen("./assets/input.txt","w");
+    ptr = fopen("../assets/input.txt","w");
     if(ptr == NULL){
         printf("error in opening file \n");
     }
@@ -21,7 +21,7 @@ int main(){
         fprintf(ptr,"%d ",f.coff[i]);
     }
     fclose(ptr);
-    ptr2=fopen("./assets/secret.txt","w");
+    ptr2=fopen("../assets/secret.txt","w");
     if(ptr2==NULL){
         printf("error in opening secret.txt");
         exit(0);

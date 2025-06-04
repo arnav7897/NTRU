@@ -10,7 +10,7 @@ using namespace NTL;
 
 int main() {
     mat_ZZ B;
-    ifstream in("./assets/ntru_matrix.txt");
+    ifstream in("../ntru_matrix.txt");
 
     if (!in.is_open()) {
         cerr << "Failed to open matrix file!" << endl;
