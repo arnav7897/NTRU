@@ -25,16 +25,16 @@ In real-world cryptographic use, NTRU includes:
 
 ### 🔹 Key Generation
 1. Choose small polynomials `f`, `g`
-2. Compute inverses:
-   - \( f_p^{-1} \mod p \)
-   - \( f_q^{-1} \mod q \)
-3. Public key:
-   \[
-   h = p \cdot f_q^{-1} \cdot g \mod q
-   \]
-4. Private key:
-   - `(f, f_p^{-1}, f_q^{-1})`
 
+2. Compute inverses:
+   - $f_p^{-1} \mod p$
+   - $f_q^{-1} \mod q$
+
+3. Compute the public key:
+   - $h = p \cdot f_q^{-1} \cdot g \mod q$
+
+4. Private key:
+   - $(f,\ f_p^{-1},\ f_q^{-1})$
 ### 🔹 Encryption
 To encrypt message polynomial `m`:
 1. Choose random small polynomial `r`
