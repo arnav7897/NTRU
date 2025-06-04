@@ -3,25 +3,7 @@
 This is a simple and educational implementation of the NTRU public-key cryptosystem. NTRU is a lattice-based cryptosystem that is considered secure against quantum attacks, and is one of the candidates in the NIST Post-Quantum Cryptography standardization process.
 
 ## 📁 Project Structure
-
-ntru/
-├── src/ # Source code
-│ ├── poly.h # Polynomial structure and operations 
-| ├── poly.c # include all important self made functions 
-| ├── poly_inv.cpp #by using NTL library computing inverse
-| ├── LLL.cpp # Attacking this Toy version by LLL algorithm
-│ └── ntru.c # Every main functions like key generation, encryption,decrypion is happening here
-|
-├──assets/ # all the .txt file are saved here
-|   ├── input.txt  # serves as input for finding inverse through poly_inv.cpp using NTL lib 
-|   ├── output.txt # contain output of inverse from poly_inv.cpp
-|   ├── public.txt # contain public parameters like public key and encrytion
-|   └── secret.txt # contain secret parameter in line just like a vector of dimention 2N parameters are f,g first N bits coeffecitents of f next N bit coeffitients of g  
-|   
-├── test_vectors/ # Sample inputs and expected outputs
-├── ntru_matrix.txt # Matrix used for LLL or attack simulation
-└── README.md # Project documentation
-
+<pre><code>📁 ntru/ ├── 📁 src/ # Source code │ ├── poly.h # Polynomial structure and operations │ ├── poly.c # All custom polynomial functions │ ├── poly_inv.cpp # Uses NTL to compute inverse │ ├── LLL.cpp # LLL attack on toy NTRU │ └── ntru.c # Keygen, encryption, and decryption │ ├── 📁 assets/ # Input/output files │ ├── input.txt # Input for poly_inv.cpp │ ├── output.txt # Output of inverse from poly_inv.cpp │ ├── public.txt # Public key and encryption output │ └── secret.txt # Secret parameters: f (0:N), g (N:2N) │ ├── 📁 test_vectors/ # Sample inputs and test matrices │ └── ntru_matrix.txt # Matrix for LLL attack │ └── README.md # Project documentation </code></pre>
 ## 🚀 Features
 
 - Polynomial arithmetic over rings
@@ -70,16 +52,16 @@ ntru/
 
 ## 🛠️ Build & Run
 
-  #### cd src  
-  #### gcc f_g_generation.c -o f_g_generation
-  #### ./f_g_generation  # making the f and g parameters  
+  cd src  
+  gcc f_g_generation.c -o f_g_generation
+  ./f_g_generation  # making the f and g parameters  
 
-  #### g++ -std=c++11 -o poly_inv poly_inv.cpp -lntl -lgmp
-  #### ./poly_inv
+  g++ -std=c++11 -o poly_inv poly_inv.cpp -lntl -lgmp
+  ./poly_inv
 
-  #### gcc ntru.c -o ntru
-  #### ./ntru
+  gcc ntru.c -o ntru
+  ./ntru
 
-  #### g++ -std=c++11 -o lll lll.cpp -lntl -lgmp  
-  this above will give the pair of the best f,g after applying LLL to crack encryption
-  #### ./lll
+  this below will give the pair of the best f,g after applying LLL to crack encryption
+  g++ -std=c++11 -o lll lll.cpp -lntl -lgmp  
+  ./lll
