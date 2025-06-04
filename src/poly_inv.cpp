@@ -76,8 +76,8 @@ void compute_and_append_inverse(long mod, const vector<long>& coeffs, const stri
 }
 
 int main() {
-    const string inputFilename = "./assets/input.txt";
-    const string outputFilename = "./assets/output.txt";
+    const string inputFilename = "../assets/input.txt";
+    const string outputFilename = "../assets/output.txt";
     vector<long> coeffs;
 
     if (!read_coefficients(inputFilename, coeffs)) { // reading coff from input.txt

@@ -1,4 +1,8 @@
 #include "poly.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<string.h>
 
 void tertnery(poly* res,int mode){
     int count = D;
