@@ -5,6 +5,7 @@ This is a simple and educational implementation of the NTRU public-key cryptosys
 ---
 
 ## 📁 Project Structure
+```
 📁 ntru/
 ├── 📁 src/ # Source code
 │ ├── poly.h # Polynomial structure and operations
@@ -22,7 +23,7 @@ This is a simple and educational implementation of the NTRU public-key cryptosys
 ├── ntru_matrix.txt # Matrix for LLL attack
 │
 └── README.md # Project documentation
-
+```
 ---
 
 ## 🚀 Features
@@ -85,18 +86,23 @@ sudo apt install libntl-dev
 ## 🛠️ Build & Run
 cd src
 
-# 1. Generate f and g
+#### 1. Generate f and g
+```
 gcc f_g_generation.c -o f_g_generation
 ./f_g_generation
-
-# 2. Compute inverses using NTL
+```
+#### 2. Compute inverses using NTL
+```
 g++ -std=c++11 -o poly_inv poly_inv.cpp -lntl -lgmp
 ./poly_inv
-
-# 3. Run NTRU scheme: keygen, encrypt, decrypt
+```
+#### 3. Run NTRU scheme: keygen, encrypt, decrypt
+```
 gcc ntru.c -o ntru
 ./ntru
-
-# 4. Run LLL attack
+```
+#### 4. Run LLL attack
+```
 g++ -std=c++11 -o lll LLL.cpp -lntl -lgmp
 ./lll
+```
