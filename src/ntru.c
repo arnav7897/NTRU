@@ -69,53 +69,18 @@ int main() {
     for(int i =0 ;i<N;i++){
         fscanf(ptr,"%d",&g.coff[i]);
     }
-    fclose(ptr);
-    // KEY generation steps -->
-    // f,g --> as t(d+1,d) and t(d,d) respectively
-    // calculating inverses --> Fq = f inv mod q ,, Fp = f inv mod p 
-    // and calculating h(x) = Fq(x)*g(x) mod q 
-    poly h;
-    poly_multiply_mod(&h,&Fq,&g,Q); // h(x) = Fq(x)*g(x) mod q 
-    print_poly("public key ", &h);
-
-    // encryption steps-->
-    // calculating a random ==> T(d,d) for a noise and randomness
-    // message chossing and it must be centerlifted coff => (-p/2,p/2)
-    // e(x) = P*h(x)*r(x) + m(x) mod q
-    poly m,r,e,temp;
-    tertnery(&m,1); // here (-p/2 , p/2 ) == (-1 , 1) so using ternery only
-    tertnery(&r,0); // random as T(D,D)
-    poly_multiply_mod(&temp,&h,&r,Q); // temp=h(x)*r(x) mod Q
-    for(int i = 0;i<N;i++){
-        temp.coff[i] =(P*temp.coff[i])%Q; // P*temp (mod Q )
-    }
-    poly_add_mod(&e,&temp,&m,Q); // e(x) = temp + m(x) (mod Q)
-    print_poly("random ",&r);
+    fclose(ptr); 
+    poly h,e,d;
+    // key generation
+    key_generation(&h,&Fq,&g);
+    // encryption
+    poly m;
+    tertnery(&m,1);
     print_poly("message ",&m);
-    print_poly("cipher poly ",&e);
+    ntru_encryption(&e,&m,&h);
+    // decrytion
+    ntru_decryption(&d,&e,&Fp,&f);
 
-    // decryption steps->
-    // a(x) = f*e mod Q;
-    // centerlift a(x) coff wrt Q;
-    // d(x) = Fp*a (mod p)
-    // d(x) = m(x)
-
-    poly a,d;
-    poly_multiply_mod(&a,&f,&e,Q);
-    for(int i = 0;i<N;i++){
-        if(a.coff[i]> Q/2){
-            a.coff[i] = a.coff[i] - Q;
-        }
-    }
-
-    poly_multiply_mod(&d,&Fp,&a,P);
-    for (int i = 0; i < N; i++) {
-        if (d.coff[i] > P/2) {
-            d.coff[i] = d.coff[i] - P;
-        }
-    }
-    print_poly("final decryption",&d);
-    
     FILE *ptr3; // storing public parameters in public.txt
     ptr3 = fopen("../assets/public.txt","w");
     if(ptr3==NULL){
