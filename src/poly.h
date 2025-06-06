@@ -23,10 +23,10 @@ Parameter Requirement:
     Q > (6D + 1) * P   and   gcd(P, Q) = 1
 */
 
-#define N 7       // Degree of polynomials
-#define Q 41      // Large modulus (for ciphertext space)
+#define N 509      // Degree of polynomials
+#define Q 2053    // Large modulus (for ciphertext space)
 #define P 3       // Small modulus (for plaintext space)
-#define D 2       // Number of +1s and -1s in ternary polynomials
+#define D 143      // Number of +1s and -1s in ternary polynomials
 
 // ===============================
 // Polynomial Data Structure
@@ -131,5 +131,7 @@ void ntru_encryption(poly* result,poly *message,poly* public_key_polynomial);
 //  4.    f      - private key polynomial
 // ===============================
 void ntru_decryption(poly* result, poly* cipher, poly* Fp, poly* f);
+// return 1 if poly are equal and 0 if not equal
+void poly_equal_mod(poly* a, poly* b,int mod);
 
 #endif // POLY_H

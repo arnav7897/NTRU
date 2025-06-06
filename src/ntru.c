@@ -3,33 +3,39 @@
 #include <stdlib.h>
 #include "poly.h"
 
-#define N 7
-
 int extract_inverse(FILE *fp, int modulus, poly *res) {
-    char line[256];
+    char line[65536];  // large enough to store all coefficients in one line
     char target[64];
     sprintf(target, "Inverse modulo %d:", modulus);
 
     while (fgets(line, sizeof(line), fp)) {
         if (strstr(line, target)) {
-            // Find the opening bracket
             char *start = strchr(line, '[');
             if (!start) return 0;
-            start++; // move past '['
+            start++;  // move past the '['
 
-            // Extract integers
-            for (int i = 0; i < N; i++) {
-                while (*start == ' ') start++;
-                res->coff[i] = atoi(start);
-                while (*start && *start != ' ') start++;
+            int i = 0;
+            while (i < N && *start) {
+                // Skip spaces, commas, brackets
+                while (*start == ' ' || *start == ',' || *start == '\n' || *start == ']') start++;
+                if (*start == '\0') break;
+
+                res->coff[i++] = atoi(start);
+
+                // Skip current number
+                while (*start && *start != ' ' && *start != ',' && *start != ']') start++;
             }
 
-            return 1; // Success
+            // Fill remaining with zeros if coefficients < N
+            while (i < N) res->coff[i++] = 0;
+
+            return 1;
         }
     }
 
     return 0; // Not found
 }
+
 
 int main() {
     FILE *fp = fopen("../assets/output.txt", "r");
@@ -40,23 +46,22 @@ int main() {
 
     poly Fp, Fq;
 
-    if (extract_inverse(fp, 41, &Fq)) {
-        printf("Inverse in Fq (mod 41): ");
+    if (extract_inverse(fp, Q, &Fq)) {
+        printf("Inverse in Fq (mod %d): ",Q);
         for (int i = 0; i < N; i++) printf("%d ", Fq.coff[i]);
         printf("\n");
     } else {
-        printf("Inverse modulo 41 not found.\n");
+        printf("Inverse modulo %d not found.\n",Q);
     }
 
-    // rewind and read again for p = 3
     rewind(fp);
 
-    if (extract_inverse(fp, 3, &Fp)) {
-        printf("Inverse in Fp (mod 3): ");
+    if (extract_inverse(fp, P, &Fp)) {
+        printf("Inverse in Fp (mod %d): ",P);
         for (int i = 0; i < N; i++) printf("%d ", Fp.coff[i]);
         printf("\n");
     } else {
-        printf("Inverse modulo 3 not found.\n");
+        printf("Inverse modulo %d not found.\n",P);
     }
 
     fclose(fp);
@@ -80,7 +85,8 @@ int main() {
     ntru_encryption(&e,&m,&h);
     // decrytion
     ntru_decryption(&d,&e,&Fp,&f);
-
+    poly_equal_mod(&d,&m,P);
+        
     FILE *ptr3; // storing public parameters in public.txt
     ptr3 = fopen("../assets/public.txt","w");
     if(ptr3==NULL){

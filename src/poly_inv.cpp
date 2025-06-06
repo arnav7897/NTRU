@@ -57,9 +57,6 @@ void compute_and_append_inverse(long mod, const vector<long>& coeffs, const stri
         return;
     }
 
-    outFile << "Q -> " << mod << "\n";
-    outFile << "Polynomial a(x): " << poly << "\n";
-
     long status = InvModStatus(inv, poly, modPoly);
     if (status != 0) {
         outFile << "Inverse does NOT exist modulo " << mod << "!\n\n";
@@ -68,10 +65,6 @@ void compute_and_append_inverse(long mod, const vector<long>& coeffs, const stri
     }
 
     outFile << "Inverse modulo " << mod << ": " << inv << "\n";
-
-    MulMod(prod, poly, inv, modPoly);
-    outFile << "Verification (a(x)*inverse mod (x^" << N << " - 1)): " << prod << "\n\n";
-
     outFile.close();
 }
 
