@@ -41,10 +41,10 @@ This is a simple and educational implementation of the NTRU public-key cryptosys
 
 | Parameter | Description                            | Example Value |
 |-----------|----------------------------------------|---------------|
-| `N`       | Degree of the polynomials              | 7 / 11        |
-| `q`       | Large modulus for ring R_q             | 41 / 127      |
+| `N`       | Degree of the polynomials              | 503        |
+| `q`       | Large modulus for ring R_q             | 2053      |
 | `p`       | Small modulus (usually small prime)    | 3             |
-| `D`       | Non-zero coefficients in `f`, `g`      | 2 / 3         |
+| `D`       | Non-zero coefficients in `f`, `g`      | 143        |
 
 > ⚠️ **Note:** These are toy parameters for demonstration only — do not use in production.
 
